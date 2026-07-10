@@ -48,7 +48,8 @@ Innehållet är klippt från officiella källor för referens (se `NOTICE.md`). 
 | Uppgift | Använd prompt |
 |---|---|
 | Oklar fråga / orkestrering / riskbedömning / roll som redovisningsbyrå | `bolagsradgivare-prompt.md` |
-| Årsredovisning | `arsredovisning-prompt.md` |
+| Årsredovisning (metodik/regelverk) | `arsredovisning-prompt.md` |
+| Årsredovisning — praktisk exekvering i Fortnox Bokslut & Skatt | skill `arsredovisning-fortnox` |
 | Inkomstdeklaration 2 | `inkomstdeklaration2-prompt.md` |
 | Momsdeklaration | `momsdeklaration-prompt.md` |
 | Arbete/kontroll i Fortnox | `fortnox-prompt.md` |
@@ -65,14 +66,17 @@ Innehållet är klippt från officiella källor för referens (se `NOTICE.md`). 
 - `Arbete/` — genererade underlag och arbetsfiler. Mappstruktur + README spåras; **skarpa filer med verkliga siffror gitignoreras.**
 
 ## Verktyg (MCP & skills)
+**Förutsättningar (obligatoriska tillägg — kör preflight varje session):** projektet kräver **Fortnox Claude Connector** + **Playwright MCP** anslutna (kontrollera `/mcp` = "connected") samt skills `pdf`/`xlsx`. Saknas något → stanna och be användaren ansluta innan Fortnox-/webbarbete påbörjas. MCP-servrarna är projekt-scopade (`.mcp.json`); Fortnox-OAuth lagras aldrig i repot.
 - **Fortnox Claude Connector** (MCP) — läser bokföring/konton/SIE och kan skapa/ändra verifikat (per godkännande). OAuth ligger i användarens globala Claude-config, **inte i repot**.
 - **Playwright MCP** (`.mcp.json`) — webbautomation för att fylla i Fortnox Bokslut & Skatt och myndighets-e-tjänster. Kräver omstart för att laddas; inloggning + BankID görs av användaren.
 - **Skills:** `pdf` och `xlsx` (Anthropic) — läsa/fylla PDF (kvitton, deklarationer) och bygga kalkyler. Installeras med `npx skills add anthropics/skills@pdf` / `@xlsx` (se `skills-lock.json`).
+- **Skill `arsredovisning-fortnox`** (projektets egen) — praktisk runbook för att bygga/signera/lämna in årsredovisning via Fortnox Bokslut & Skatt + Playwright: stegordning, token-effektiva mönster, felsökningstabell och verifieringsgrindar. Auto-aktiveras vid årsredovisningsarbete.
 - **Kvittotolkning:** använd inbyggd bildläsning + `pdf`-skillen → föreslå verifikation → bokför via connectorn (semi-auto).
 
 ## Säkerhet & git
 - Känsliga mappar/filer gitignoreras (se `.gitignore`): `Om mig/`, `Underlag-*/`, `Uppgifter att slutföra/`, skarpa `Arbete/`-filer, samt `*.env`, secrets, tokens, nycklar och `.playwright-profile/`.
 - **Ladda aldrig upp personuppgifter, kontouppgifter eller API-nycklar publikt.** Repot är byggt så att andra kan klona strukturen utan tillgång till något bolags privata data.
+- **Persondata-revision före varje push:** kör `git ls-files -z | xargs -0 grep -ilE "<bolagsnamn>|<org.nr>|<personnr>|<adress>|<e-post>"` (0 träffar krävs) och kontrollera `git status`. Kontospecifika Fortnox-klipp (app-market/abonnemang) och `.playwright-mcp/` (sidsnapshots) hör aldrig i repot — de är gitignorerade.
 
 ## Automation
 Full autonom myndighetsinlämning är **inte** möjlig: sista signaturen kräver användarens BankID som

@@ -1,0 +1,13 @@
+{
+  "enabledMcpjsonServers": ["fortnox", "playwright"],
+  "permissions": {
+    "allow": [
+      "mcp__fortnox__fortnox_describe",
+      "mcp__fortnox__fortnox_list",
+      "mcp__fortnox__fortnox_get",
+      "mcp__fortnox__fortnox_download_file",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_snapshot"
+    ]
+  }
+}

@@ -1,5 +1,9 @@
 {
   "mcpServers": {
+    "fortnox": {
+      "type": "http",
+      "url": "https://fortnox.sidcom.app/mcp"
+    },
     "playwright": {
       "command": "npx",
       "args": ["-y", "@playwright/mcp@latest"]

@@ -263,3 +263,17 @@ När uppgiften är klar ska du rapportera:
 - vilka delar som är klara
 - vad som saknas
 - om årsredovisningen är redo för granskning, underskrift eller inlämning
+
+# Praktisk exekvering (Fortnox Bokslut & Skatt)
+
+Denna prompt är **metodik/teori**. När årsredovisningen faktiskt ska byggas,
+signeras och lämnas in via Fortnox **Bokslut & Skatt** (Playwright) och
+Bolagsverket — använd skillen **`arsredovisning-fortnox`** (`.claude/skills/`).
+Den innehåller exakt stegordning, token-effektiva Playwright-mönster och en
+felsökningstabell över kända Fortnox-fällor.
+
+Kom särskilt ihåg:
+- **Preflight:** Fortnox-connectorn + Playwright måste vara "connected"; siffrorna ska vara avstämda i bokföringen först.
+- **Stegordning:** Klientinställningar → Bokslut/Skatteberäkning ("Uppdatera mot bokföring" först) → Årsredovisning-inställningar (K2, digital) → RR/BR/Noter/Undertecknare → Granska & lås + Kontroll mot Bolagsverket → Årsstämmoprotokoll → Signering (BankID) → Digital inlämning (fastställelseintyg + BankID).
+- **Vanliga fällor:** periodlåsning kräver "Klar" före "Låst" (kronologisk ordning); säte = registrerad kommun (≠ postort) och kan återgå till tomt vid låsning → verifiera i förhandsvisning; VD-synk mot Bolagsverkets register; verifikationsserie kräver manuell kontering.
+- **Gräns:** BankID-signering och slutlig "Lämna in" är alltid användarens.

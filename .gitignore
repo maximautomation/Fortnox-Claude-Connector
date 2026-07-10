@@ -35,13 +35,23 @@ Arbete/**
 *.pfx
 .playwright-profile/
 
+# --- Playwright MCP-utdata (sidsnapshots + konsolloggar med bolagsdata) ---
+.playwright-mcp/
+
+# --- Kontospecifika klipp från Fortnox (app-market/abonnemang) — persondata ---
+# Generiska mönster (namnger aldrig bolaget). Håll publik Knowledge Base generisk.
+Knowledge Base/**/Integrationer/*Connector*.md
+Knowledge Base/**/Abonemang/Fortnox-abonnemang-*.md
+
 # ==========================================================================
 #  Verktygsbrus / lokalt (installeras/genereras, hör inte hemma i repot)
 # ==========================================================================
 .DS_Store
 **/.DS_Store
 .agents/
-.claude/skills/
+# Ignorera de symlänkade Anthropic-skillsen men SPÅRA egna projekt-skills
+.claude/skills/pdf
+.claude/skills/xlsx
 .claude/settings.local.json
 node_modules/
 .venv/
