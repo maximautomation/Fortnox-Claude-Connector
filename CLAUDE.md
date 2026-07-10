@@ -72,6 +72,7 @@ Innehållet är klippt från officiella källor för referens (se `NOTICE.md`). 
 - **Skills:** `pdf` och `xlsx` (Anthropic) — läsa/fylla PDF (kvitton, deklarationer) och bygga kalkyler. Installeras med `npx skills add anthropics/skills@pdf` / `@xlsx` (se `skills-lock.json`).
 - **Skill `arsredovisning-fortnox`** (projektets egen) — praktisk runbook för att bygga/signera/lämna in årsredovisning via Fortnox Bokslut & Skatt + Playwright: stegordning, token-effektiva mönster, felsökningstabell och verifieringsgrindar. Auto-aktiveras vid årsredovisningsarbete.
 - **Kvittotolkning:** använd inbyggd bildläsning + `pdf`-skillen → föreslå verifikation → bokför via connectorn (semi-auto).
+- **Plugin `ponytail@skills-dir`** (tredjepart, MIT) — vendrat projekt-lokalt i `.claude/skills/ponytail/` (INTE globalt). SessionStart/UserPromptSubmit-hooks (Node) injicerar en "minimalism-först"-hållning: skippa onödig kod (YAGNI), återanvänd/standardbibliotek före egen kod. Passar detta kodfria/lean-projekt. Kör `/reload-plugins` eller starta om för att ladda; läge styrs med `/ponytail [lite|full|ultra|off]`. Kör bara lokal Node, inga nätverksanrop.
 
 ## Säkerhet & git
 - Känsliga mappar/filer gitignoreras (se `.gitignore`): `Om mig/`, `Underlag-*/`, `Uppgifter att slutföra/`, skarpa `Arbete/`-filer, samt `*.env`, secrets, tokens, nycklar och `.playwright-profile/`.
