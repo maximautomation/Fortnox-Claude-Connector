@@ -54,6 +54,11 @@ Metodiken/regelverket finns i `Prompts/arsredovisning-prompt.md`.
 1. **Klona** repot och öppna mappen i Claude Code.
 2. **Lägg in ditt bolag:** kopiera `Om mig/EXEMPEL-Bolagsfakta.md` → `Om mig/Bolagsfakta.md` och fyll i.
    Lägg dina bolagsdokument (bolagsordning, registerutdrag m.m.) i `Om mig/` (gitignorerat).
+3. **Aktivera push-säkerhetsspärren (rekommenderas starkt):**
+   - kopiera `Om mig/EXEMPEL-persondata-monster.txt` → `Om mig/persondata-monster.txt` (gitignoreras
+     automatiskt) och fyll i ditt bolags identifierare (namn, org.nr, personnr, adress, e-post, telefon),
+   - kör en gång: `git config core.hooksPath .githooks`.
+   Därefter blockeras varje `git push` automatiskt om något av dina mönster finns i en spårad fil.
 3. **Anslut Fortnox:** connectorn är deklarerad **projekt-scopat** i `.mcp.json` (`fortnox`, http). Godkänn/OAuth:a den vid första körningen — **OAuth-token lagras av Claude Code, aldrig i repot**. Har du sedan tidigare samma connector i din *globala* config: ta bort den globala posten så du slipper dubblett (kör `--transport http`, inte stdio).
 4. **Installera skills:** `npx skills add anthropics/skills@pdf` och `@xlsx` (se `skills-lock.json`).
 5. *(Valfritt)* **Playwright** för webbautomation: finns i `.mcp.json`; kör `npx playwright install chromium` och starta om Claude Code.
@@ -75,5 +80,10 @@ Uppgifter att slutföra/ Myndighetsbrev (gitignorerat)
 Repot är byggt så att **ingen privat data följer med publikt**. Gitignorerat: `Om mig/` (utom mall),
 `Underlag-*/`, `Uppgifter att slutföra/`, skarpa `Arbete/`-filer, samt allt som ser ut som secrets
 (`*.env`, `*token*`, `*secret*`, `*.key`, `*.pem`) och `.playwright-profile/`. **API-nycklar och
-Fortnox-OAuth lagras aldrig i repot** — de ligger i användarens globala Claude-config. Kontrollera
-alltid `git status` innan du pushar.
+Fortnox-OAuth lagras aldrig i repot** — de ligger i användarens globala Claude-config.
+
+**Automatisk push-spärr:** `.githooks/pre-push` blockerar varje `git push` om känsliga
+identifierare hittas i en spårad fil. Mönstren läses ur den gitignorerade `Om mig/persondata-monster.txt`
+(så själva hooken är fri från persondata). Aktivera med `git config core.hooksPath .githooks` (se
+Kom igång, steg 3). Spärren är ett skyddsnät — kontrollera ändå `git status` innan du pushar, och
+tvinga aldrig förbi med `--no-verify` om spärren larmar.

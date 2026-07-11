@@ -1,0 +1,51 @@
+#!/bin/sh
+# =============================================================================
+#  pre-push — SÄKERHETSSPÄRR mot att bolags-/persondata pushas publikt
+# =============================================================================
+#  Körs automatiskt vid VARJE "git push" (aktiveras med:
+#     git config core.hooksPath .githooks   — se README/CLAUDE.md).
+#
+#  Läser känsliga sökmönster ur en GITIGNORERAD fil så att själva hooken
+#  (som är spårad) aldrig innehåller persondata:
+#     "Om mig/persondata-monster.txt"   (kopiera EXEMPEL-filen och fyll i dina)
+#
+#  Hittas något av mönstren i en SPÅRAD fil → pushen blockeras.
+#  Tanken: andra kan klona repot och anpassa fritt utan tillgång till din data.
+# =============================================================================
+set -eu
+
+REPO_ROOT=$(git rev-parse --show-toplevel)
+PATTERNS="$REPO_ROOT/Om mig/persondata-monster.txt"
+
+# Ingen mönsterfil → varna tydligt men blockera inte (t.ex. färsk klon).
+if [ ! -f "$PATTERNS" ]; then
+  printf '\033[33m[pre-push] VARNING: persondata-kontrollen är INAKTIV.\n' >&2
+  printf '  Skapa "Om mig/persondata-monster.txt" (kopiera EXEMPEL-persondata-monster.txt)\n' >&2
+  printf '  och fyll i ditt bolags identifierare för att aktivera skyddet.\033[0m\n' >&2
+  exit 0
+fi
+
+# Aktiva mönster = rader som inte är tomma eller kommentarer (#).
+TMP=$(mktemp)
+trap 'rm -f "$TMP"' EXIT
+grep -vE '^[[:space:]]*(#|$)' "$PATTERNS" > "$TMP" 2>/dev/null || true
+[ -s "$TMP" ] || exit 0   # tom mönsterfil → inget att kontrollera
+
+# Skanna alla SPÅRADE filer (fasta strängar, skiftlägesokänsligt, hoppa binärer).
+# Den gitignorerade mönsterfilen ingår inte i "git ls-files" → self-match undviks.
+HITS=$(git ls-files -z | xargs -0 grep -I -n -i -F -f "$TMP" -- 2>/dev/null || true)
+
+if [ -n "$HITS" ]; then
+  printf '\033[31m\n' >&2
+  printf '========================================================================\n' >&2
+  printf '  PUSH STOPPAD — känslig bolags-/persondata i SPÅRADE filer\n' >&2
+  printf '========================================================================\033[0m\n' >&2
+  printf '%s\n' "$HITS" >&2
+  printf '\033[31m------------------------------------------------------------------------\n' >&2
+  printf '  Ta bort uppgifterna eller gitignorera filen, committa, och pusha igen.\n' >&2
+  printf '  (Mönster läses ur: Om mig/persondata-monster.txt)\033[0m\n' >&2
+  exit 1
+fi
+
+printf '\033[32m[pre-push] Persondata-kontroll OK — inga bolags-/persondata i spårade filer.\033[0m\n' >&2
+exit 0

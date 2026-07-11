@@ -80,7 +80,8 @@ Innehållet är klippt från officiella källor för referens (se `NOTICE.md`). 
 ## Säkerhet & git
 - Känsliga mappar/filer gitignoreras (se `.gitignore`): `Om mig/`, `Underlag-*/`, `Uppgifter att slutföra/`, skarpa `Arbete/`-filer, samt `*.env`, secrets, tokens, nycklar och `.playwright-profile/`.
 - **Ladda aldrig upp personuppgifter, kontouppgifter eller API-nycklar publikt.** Repot är byggt så att andra kan klona strukturen utan tillgång till något bolags privata data.
-- **Persondata-revision före varje push:** kör `git ls-files -z | xargs -0 grep -ilE "<bolagsnamn>|<org.nr>|<personnr>|<adress>|<e-post>"` (0 träffar krävs) och kontrollera `git status`. Kontospecifika Fortnox-klipp (app-market/abonnemang) och `.playwright-mcp/` (sidsnapshots) hör aldrig i repot — de är gitignorerade.
+- **Automatisk push-spärr:** `.githooks/pre-push` (aktiveras med `git config core.hooksPath .githooks`) blockerar varje `git push` om känsliga identifierare hittas i en spårad fil. Mönstren läses ur den **gitignorerade** `Om mig/persondata-monster.txt` (hooken själv är fri från persondata; mall: `Om mig/EXEMPEL-persondata-monster.txt`). **Tvinga aldrig förbi med `--no-verify`.**
+- **Persondata-revision före varje push (manuell dubbelkoll):** kör `git ls-files -z | xargs -0 grep -ilE "<bolagsnamn>|<org.nr>|<personnr>|<adress>|<e-post>"` (0 träffar krävs) och kontrollera `git status`. Kontospecifika Fortnox-klipp (app-market/abonnemang) och `.playwright-mcp/` (sidsnapshots) hör aldrig i repot — de är gitignorerade.
 
 ## Automation
 Full autonom myndighetsinlämning är **inte** möjlig: sista signaturen kräver användarens BankID som

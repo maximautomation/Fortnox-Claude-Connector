@@ -1,0 +1,39 @@
+# =============================================================================
+#  EXEMPEL — mönsterfil för pre-push-säkerhetsspärren
+# =============================================================================
+#  Kopiera denna fil till  "persondata-monster.txt"  (samma mapp) — den
+#  kopian gitignoreras automatiskt — och byt ut raderna mot DITT bolags
+#  faktiska identifierare. Hooken .githooks/pre-push blockerar push om något
+#  av mönstren finns i en spårad fil.
+#
+#  Regler:
+#   - En identifierare per rad. Fasta strängar (ej regex), skiftlägesokänsligt.
+#   - Rader som börjar med # och tomma rader ignoreras.
+#   - Använd SPECIFIKA strängar. Undvik korta fragment (t.ex. "8436") eller
+#     vanliga ortsnamn (t.ex. "Järfälla") som ger falska träffar mot t.ex.
+#     kontoplaner eller Knowledge Base.
+# =============================================================================
+
+# Bolagsnamn (och ev. varianter)
+Ditt Bolag AB
+
+# Organisationsnummer (med och utan bindestreck)
+XXXXXX-XXXX
+XXXXXXXXXX
+
+# Personnummer för firmatecknare/ägare (med och utan bindestreck)
+ÅÅMMDD-XXXX
+ÅÅMMDDXXXX
+
+# Adress (specifik gatuadress, inte bara ort)
+Gatunamn 1
+
+# E-post och domän
+namn@dittbolag.se
+dittbolag.se
+
+# Telefonnummer
+0700000000
+
+# Efternamn på företrädare (ett per rad)
+Efternamn
