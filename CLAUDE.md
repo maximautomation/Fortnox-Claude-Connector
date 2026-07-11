@@ -50,7 +50,8 @@ Innehållet är klippt från officiella källor för referens (se `NOTICE.md`). 
 | Oklar fråga / orkestrering / riskbedömning / roll som redovisningsbyrå | `bolagsradgivare-prompt.md` |
 | Årsredovisning (metodik/regelverk) | `arsredovisning-prompt.md` |
 | Årsredovisning — praktisk exekvering i Fortnox Bokslut & Skatt | skill `arsredovisning-fortnox` |
-| Inkomstdeklaration 2 | `inkomstdeklaration2-prompt.md` |
+| Inkomstdeklaration 2 (metodik/regelverk) | `inkomstdeklaration2-prompt.md` |
+| Inkomstdeklaration 2 — praktisk exekvering i Fortnox Bokslut & Skatt | skill `inkomstdeklaration2-fortnox` |
 | Momsdeklaration | `momsdeklaration-prompt.md` |
 | Arbete/kontroll i Fortnox | `fortnox-prompt.md` |
 | Integrationer / n8n / MCP / API / verktyg | `integration-prompt.md` |
@@ -71,6 +72,7 @@ Innehållet är klippt från officiella källor för referens (se `NOTICE.md`). 
 - **Playwright MCP** (`.mcp.json`) — webbautomation för att fylla i Fortnox Bokslut & Skatt och myndighets-e-tjänster. Kräver omstart för att laddas; inloggning + BankID görs av användaren.
 - **Skills:** `pdf` och `xlsx` (Anthropic) — läsa/fylla PDF (kvitton, deklarationer) och bygga kalkyler. Installeras med `npx skills add anthropics/skills@pdf` / `@xlsx` (se `skills-lock.json`).
 - **Skill `arsredovisning-fortnox`** (projektets egen) — praktisk runbook för att bygga/signera/lämna in årsredovisning via Fortnox Bokslut & Skatt + Playwright: stegordning, token-effektiva mönster, felsökningstabell och verifieringsgrindar. Auto-aktiveras vid årsredovisningsarbete.
+- **Skill `inkomstdeklaration2-fortnox`** (projektets egen) — praktisk runbook för INK2 (INK2R + INK2S) i Fortnox Bokslut & Skatt → Skatt-modulen + Playwright: hur PDF-overlay-fälten lokaliseras/redigeras (äkta tangenttryck, ej native setter), vad Fortnox auto-hämtar vs vad som fylls manuellt (representationsmåltider, 4.20 lån, upplysningar), samt digital inlämning via **direkt-API** (flik "Inlämning") eller SRU-filöverföring. Återanvänder Playwright-mönstren från `arsredovisning-fortnox`. Auto-aktiveras vid INK2-arbete.
 - **Kvittotolkning:** använd inbyggd bildläsning + `pdf`-skillen → föreslå verifikation → bokför via connectorn (semi-auto).
 - **Plugin `ponytail@skills-dir`** (tredjepart, MIT) — vendrat projekt-lokalt i `.claude/skills/ponytail/` (INTE globalt). SessionStart/UserPromptSubmit-hooks (Node) injicerar en "minimalism-först"-hållning: skippa onödig kod (YAGNI), återanvänd/standardbibliotek före egen kod. Passar detta kodfria/lean-projekt. Kör `/reload-plugins` eller starta om för att ladda; läge styrs med `/ponytail [lite|full|ultra|off]`. Kör bara lokal Node, inga nätverksanrop.
 - **Plugin `superpowers@skills-dir`** (tredjepart, MIT) — vendrat projekt-lokalt i `.claude/skills/superpowers/` (INTE globalt). SessionStart-hook injicerar `using-superpowers` så agenten alltid letar efter en relevant skill först. Bibliotek av arbetsflödes-skills för disciplinerad utveckling (brainstorming, skriva/exekvera planer, TDD, systematisk debugging, kodgranskning, git-worktrees) samt **`writing-skills`** för att skapa/granska skills. Mest relevant om projektet utvecklar kod/integrationer/n8n; för det kodfria redovisningsarbetet är `ponytail` mer central. Kör `/reload-plugins` eller starta om för att ladda. *(För att skapa/optimera skills finns även Anthropics globala `skill-creator` — installeras med `npx skills add https://github.com/anthropics/skills --skill skill-creator`.)*

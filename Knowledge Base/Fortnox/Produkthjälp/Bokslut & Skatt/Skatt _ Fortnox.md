@@ -227,3 +227,23 @@ Om du vill ladda ned den **Slutliga skatteuträkningen** har du möjlighet att k
 Dela denna artikel
 
 Länk kopierad
+
+---
+
+## Projektnotis 2026-07-11 (uppdatering — direkt inlämning via Skatteverkets API)
+
+*Tillagd av projektet. Fortnox-hjälpen ovan beskriver export via **Hämta SRU** +
+Skatteverkets filöverföringstjänst. Fortnox har sedan dess även en **direkt
+inlämning via Skatteverkets API**:*
+
+- I Skatt-modulen finns nu en flik **"Inlämning"** (utöver "Upprättande").
+- Flöde: markera blanketten som **"Klar"** → **"Lämna in till Skatteverket"**
+  (skickar deklarationsunderlaget via API till bolagets **egna utrymme** hos
+  Skatteverket, som ett **utkast**) → **"Direktlänk till eget utrymme"** →
+  behörig företrädare (firmatecknare/VD) **loggar in med BankID, granskar och
+  skriver under** på Skatteverkets Mina sidor → **kvittensnummer**.
+- **Endast ett utkast åt gången** i egna utrymmet; en ny inlämning **ersätter**
+  det tidigare → inkludera **samtliga** blanketter vid varje inlämning.
+- SRU-filöverföring finns kvar som alternativ. Signering sker i båda fallen på
+  Skatteverkets Mina sidor med BankID.
+- Praktisk runbook: skill `inkomstdeklaration2-fortnox`.
