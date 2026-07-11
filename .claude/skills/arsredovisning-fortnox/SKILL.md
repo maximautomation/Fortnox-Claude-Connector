@@ -1,13 +1,11 @@
 ---
 name: arsredovisning-fortnox
 description: >-
-  Praktisk runbook för att upprätta, signera och digitalt lämna in en svensk
-  K2-årsredovisning i Fortnox "Bokslut & Skatt" med Playwright MCP + Fortnox
-  Claude Connector. Använd när uppgiften rör att bygga/kontrollera/lämna in
-  årsredovisning i Fortnox, driva Bokslut & Skatt via webben, eller digital
-  inlämning till Bolagsverket. Innehåller stegordning, token-effektiva
-  Playwright-mönster, en felsökningstabell över kända Fortnox-fällor och
-  verifieringsgrindar. Generell — inga bolagsuppgifter.
+  Använd när uppgiften rör att upprätta, kontrollera, signera eller digitalt
+  lämna in en svensk K2-årsredovisning i Fortnox "Bokslut & Skatt", driva
+  Bokslut & Skatt via webben med Playwright, eller digital inlämning av
+  årsredovisning till Bolagsverket. Kräver Fortnox Claude Connector + Playwright
+  MCP. Generell — inga bolagsuppgifter.
 metadata:
   type: reference
 ---

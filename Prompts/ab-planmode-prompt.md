@@ -28,10 +28,13 @@ Jag tror att Inkomstdeklaration 2 i praktiken inte kan göras korrekt innan års
 
 Inspektera hela mappen `AB`.
 
-Den innehåller fyra huvudmappar:
+Börja med att läsa `CLAUDE.md` i roten — det är regelboken som styr hur agenten
+arbetar (svenska, gissa aldrig, semi-automatiskt, risknivåer, säkerhet).
 
-1. `Uppgifter att utföra`
-   - Innehåller aktuella uppgifter.
+Repot innehåller följande huvudmappar:
+
+1. `Uppgifter att slutföra`
+   - Innehåller aktuella myndighetsuppgifter.
    - Just nu finns brev/påminnelser från Skatteverket och Bolagsverket.
    - Denna mapp ska styra vad som är mest akut.
 
@@ -54,6 +57,13 @@ Den innehåller fyra huvudmappar:
    - Innehåller åtta specialistprompts.
    - Gå igenom dessa och föreslå hur de ska användas i arbetsflödet.
    - Bedöm om de är rätt placerade, om någon ska uppdateras, och hur de ska kopplas till olika typer av uppgifter.
+
+5. `Arbete`
+   - Genererade underlag och arbetsfiler (Fortnox-exporter, årsredovisning, INK2, moms).
+   - Mappstruktur och README:er spåras; skarpa filer med verkliga siffror är gitignorerade.
+
+6. `Underlag-*` (t.ex. `Underlag-2025`)
+   - Bank-, skattekonto- och momsunderlag. Känsligt och gitignorerat.
 
 # Viktiga frågor att analysera i Plan Mode
 
@@ -178,7 +188,7 @@ Lista huvudmappar, undermappar och viktiga filer som du hittar.
 
 ## 3. Akuta uppgifter
 
-Identifiera vad i `Uppgifter att utföra` som måste hanteras först.
+Identifiera vad i `Uppgifter att slutföra` som måste hanteras först.
 
 ## 4. Rekommenderad arbetsordning
 
